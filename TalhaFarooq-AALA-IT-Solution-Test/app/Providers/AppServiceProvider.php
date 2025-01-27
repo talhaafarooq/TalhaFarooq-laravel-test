@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Contracts\TaskRepositoryInterface;
+use App\Events\TaskCreated;
+use App\Listeners\SendTaskCreatedNotification;
+use App\Services\TaskService;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(TaskRepositoryInterface::class, TaskService::class);
     }
 
     /**
@@ -19,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Bind The event listeners
+        Event::listen(TaskCreated::class, SendTaskCreatedNotification::class);
     }
 }
