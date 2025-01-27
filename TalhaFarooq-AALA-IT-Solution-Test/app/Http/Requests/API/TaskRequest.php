@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\API;
 
+use App\Enums\TaskStatusEnum;
 use App\Traits\ValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TaskRequest extends FormRequest
 {
@@ -17,7 +19,8 @@ class TaskRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required'
+            'description' => 'required',
+            'status' => ['required|', Rule::in(TaskStatusEnum::getValues())]
         ];
     }
 }

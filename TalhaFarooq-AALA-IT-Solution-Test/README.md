@@ -1,66 +1,189 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Laravel-based API for managing tasks. It provides endpoints for creating, reading, updating, and deleting tasks.
 
-## About Laravel
+## Features
+- Retrieve all tasks.
+- Create a new task.
+- View a specific task.
+- Update an existing task.
+- Delete a task.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Prerequisites
+1. **XAMPP** or any other local server environment.
+2. **Composer** installed.
+3. **PHP 8.0+**.
+4. **Laravel Framework** installed.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation Steps
+1. Clone the repository: ```git clone https://github.com/aalasolutions/laravel-test ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. Create New Laravel Project:
+    ``` laravel new TalhaFarooq-laravel-test```
 
-## Learning Laravel
+3. Navigate to the project directory:
+   ``` cd TalhaFarooq-laravel-test ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. Configure the database in the `.env` file:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=db_name
+   DB_USERNAME=user_name
+   DB_PASSWORD=password
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+5. Make new task name migrations with model:
+   ```php artisan make:model -m ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+6. Run database migrations:
+   ```bash php artisan migrate ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+7. Make new task name controller:
+   ```php artisan make:controller API/TaskController ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+8. Start the development server with command:
+   ```php artisan serve ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Endpoints
 
-## Code of Conduct
+### 1. Get All Tasks
+- **URL:** `/api/tasks`
+- **Method:** GET
+- **Response:**
+  ```json
+  {
+      "statusCode": 200,
+      "data": [
+          {
+              "id": 1,
+              "title": "Task 1",
+              "description": "lorem ipsum",
+              "status": "pending",
+              "user_id": 3,
+              "created_at": "2025-01-27T15:25:24.000000Z",
+              "updated_at": "2025-01-27T15:25:24.000000Z"
+          },
+          {
+              "id": 2,
+              "title": "Task 2",
+              "description": "lorem ipsum 2 description",
+              "status": "pending",
+              "user_id": 3,
+              "created_at": "2025-01-27T15:25:24.000000Z",
+              "updated_at": "2025-01-27T15:25:24.000000Z"
+          }
+      ],
+      "message": "Tasks retrieved successfully!"
+  }
+  ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Create a Task
+- **URL:** `/api/tasks`
+- **Method:** POST
+- **Request Body:**
+  ```json
+  {
+      "title": "New Task",
+      "description": "Task description",
+      "status": "pending"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+      "statusCode": 201,
+      "message": "Task created successfully!",
+      "data": {
+          "id": 2,
+          "title": "New Task",
+          "description": "Task description",
+          "status": "pending",
+          "user_id": 3,
+          "created_at": "2025-01-27T15:30:00.000000Z",
+          "updated_at": "2025-01-27T15:30:00.000000Z"
+      }
+  }
+  ```
 
-## Security Vulnerabilities
+### 3. Get a Specific Task
+- **URL:** `/api/tasks/{id}`
+- **Method:** GET
+- **Response:**
+  ```json
+  {
+      "statusCode": 200,
+      "data": {
+          "id": 1,
+          "title": "Task 1",
+          "description": "lorem ipsum",
+          "status": "pending",
+          "user_id": 3,
+          "created_at": "2025-01-27T15:25:24.000000Z",
+          "updated_at": "2025-01-27T15:25:24.000000Z"
+      },
+      "message": "Task retrieved successfully!"
+  }
+  ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Update a Task
+- **URL:** `/api/tasks/{id}`
+- **Method:** PUT
+- **Request Body:**
+  ```json
+  {
+      "title": "Updated Task",
+      "description": "Updated description",
+      "status": "completed"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+      "statusCode": 200,
+      "message": "Task updated successfully!",
+      "data": {
+          "id": 1,
+          "title": "Updated Task",
+          "description": "Updated description",
+          "status": "completed",
+          "user_id": 3,
+          "created_at": "2025-01-27T15:25:24.000000Z",
+          "updated_at": "2025-01-27T15:40:00.000000Z"
+      }
+  }
+  ```
 
-## License
+### 5. Delete a Task
+- **URL:** `/api/tasks/{id}`
+- **Method:** DELETE
+- **Response:**
+  ```json
+  {
+      "statusCode": 200,
+      "message": "Task deleted successfully!"
+  }
+  ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Repository Pattern
+This project uses the **Repository Pattern** for better code organization and separation of concerns. The `TaskRepositoryInterface` defines the methods, and the concrete implementation handles the database logic.
+
+## Troubleshooting
+1. If you face a `file_put_contents()` error, ensure proper permissions for `storage` and `bootstrap/cache` directories:
+   ```bash
+   chmod -R 775 storage bootstrap/cache
+   ```
+
+2. Check the Laravel logs in `storage/logs/laravel.log` for detailed error messages.
+
+3. If using `php artisan serve`, ensure no other application is using port `8000`. You can specify another port:
+   ```bash
+   php artisan serve --port=8080
+   ```
+
+## Author
+**Talha Farooq**
